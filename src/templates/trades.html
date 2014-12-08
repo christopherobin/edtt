@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-lg-6 col-md-12 col-xs-12">
+    <div class="widget">
+      <div class="widget-header">
+        <i class="fa fa-exchange"></i> Trade Finder
+      </div>
+      <div class="widget-body">
+        <form class="form-horizontal" role="form" name="tradeForm">
+          <div class="form-group">
+            <div class="col-xs-5">
+              <angucomplete-alt id="tradeFrom"
+                placeholder="From"
+                pause="100"
+                selected-object="tradeFrom"
+                search-fields="name"
+                title-field="name"
+                local-data="systems"
+                initialValue="assignTradeFrom"
+                minlength="1"
+                input-class="form-control form-control-small"
+                field-required/>
+            </div>
+            <label class="col-xs-2 control-label" style="text-align:center;" ng-click="swapTrades()"><i class="fa fa-exchange"></i></label>
+            <div class="col-xs-5">
+              <angucomplete-alt id="tradeTo"
+                placeholder="To"
+                pause="100"
+                selected-object="tradeTo"
+                search-fields="name"
+                title-field="name"
+                local-data="systems"
+                initialValue="assignTradeTo"
+                minlength="1"
+                input-class="form-control form-control-small"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-4">
+              <input class="form-control form-control-small" type="number" ng-model="cargoSize" placeholder="Cargo size">
+            </div>
+            <div class="col-xs-4">
+              <input class="form-control form-control-small" type="number" ng-model="funds" placeholder="Funds">
+            </div>
+            <div class="col-xs-4">
+              <input class="form-control form-control-small" type="number" ng-model="range" placeholder="Jump Range">
+            </div>
+          </div>
+          <div class="row form-group">
+            <button class="col-xs-3 btn btn-primary pull-right" ng-click="findTrades($event)" ng-disabled="tradeForm.$invalid">Search</button>
+          </div>
+        </form>
+        <div class="table-responsive negative-margin">
+          <table class="table">
+            <thead>
+              <tr><th>Good</th><th>Buy</th><th>Sell</th><th>Revenue per unit</th><th>Revenue</th></tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat-start="route in routes">
+                <th colspan="5">{{route.from.system}} ({{route.from.station}}) to {{route.to.system}} ({{route.to.station}}) ({{route.distance}} ly)</th>
+              </tr>
+              <tr ng-repeat="trade in route.trades" ng-repeat-end>
+                <td>{{trade.Name}}</td>
+                <td>{{trade.Buy}}</td>
+                <td>{{trade.Sell}}</td>
+                <td>{{trade.Revenue}}</td>
+                <td>{{trade.RevenueTotal}} ({{trade.UnitsTraded}} units)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="widget" style="margin-top:15px;">
+      <div class="widget-header">
+        <i class="fa fa-search"></i> Commodity Finder
+      </div>
+      <div class="widget-body">
+        <form class="form-horizontal" role="form" name="findForm">
+          <div class="form-group">
+            <div class="col-xs-4">
+              <angucomplete-alt id="findFrom"
+                placeholder="From"
+                pause="100"
+                selected-object="find.from"
+                search-fields="name"
+                title-field="name"
+                local-data="systems"
+                minlength="1"
+                input-class="form-control form-control-small"
+                field-required/>
+            </div>
+            <div class="col-xs-4">
+              <angucomplete-alt id="findGood"
+                placeholder="Good"
+                pause="100"
+                selected-object="find.good"
+                search-fields="name"
+                title-field="name"
+                local-data="goods"
+                minlength="1"
+                input-class="form-control form-control-small"/>
+            </div>
+            <div class="col-xs-4">
+              <input class="form-control form-control-small" type="number" ng-model="find.range" placeholder="Jump Range">
+            </div>
+          </div>
+          <div class="row form-group">
+            <button class="col-xs-3 btn btn-primary pull-right" ng-click="findGood($event)" ng-disabled="findForm.$invalid">Search</button>
+          </div>
+        </form>
+        <table class="table">
+          <thead>
+            <tr><th>Station</th><th>Price</th></tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat-start="(name, system) in found">
+              <th colspan="2">{{name}} ({{system.distance}} ly)</th>
+            </tr>
+            <tr ng-repeat="station in system.stations" ng-repeat-end>
+              <td>{{station.name}}</td>
+              <td>{{station.price}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12 col-xs-12">
+    <div class="widget">
+      <div class="widget-header">
+          <i class="fa fa-barcode"></i> Goods
+        </div>
+        <div class="widget-body no-padding">
+          <div class="table-responsive">
+            <table id="goods" class="table">
+              <tbody>
+                <tr ng-repeat-start="(category, goods) in market">
+                  <th colspan="2">{{category}}</th>
+                </tr>
+                <tr ng-repeat="good in goods" ng-repeat-end>
+                  <td>{{good.name}}</td>
+                  <td>{{good.galactic_avg | number}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Main Content -->

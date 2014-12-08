@@ -1,0 +1,76 @@
+<div id="systems-list">
+	<div id="systems-search" class="row">
+		<input type="text" placeholder="Search" class="form-control input-sm pull-right">
+	</div>
+	<ul>
+		<li ng-repeat="system in systems" ng-class="{active: system === activeSystem}" ng-click="selectSystem(system)">
+			{{system.name}}
+			<span class="info pull-right">{{system.economy}}</span>
+		</li>
+	</ul>
+	<div id="systems-add">
+		<a href="#" ng-click="createSystem($event)"><i class="fa fa-plus"></i> Add System</a>
+	</div>
+</div>
+
+<div id="systems-data">
+	<div class="widget">
+		<div class="widget-header">
+			<ul id="station-tabs">
+				<li ng-repeat="station in stations" ng-class="{active: station === activeStation}">
+					<a href="#" ng-click="selectStation($event, station)" role="tab" data-toggle="tab">{{station}}</a>
+				</li>
+				<li>
+					<a href="#" ng-click="createStation($event)"><i class="fa fa-plus"></i> Add new station</a>
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+		<div class="widget-body no-padding">
+			<div class="table-responsive">
+				<div id="station-services">
+					<form>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="station.services.market"> Market
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="station.services.blackmarket"> Black-Market
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="station.services.outfitting"> Outfitting
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="station.services.shipyard"> Shipyard
+							</label>
+						</div>
+					</form>
+				</div>
+				<table class="table">
+					<thead>
+						<tr><th class="text-center">Name</th><th>Sell</th><th>Buy</th><th>Demand</th><th>Supply</th><th>Galactic Avg</th></tr>
+					</thead>
+					<tbody>
+						<tr class="category" ng-repeat-start="(name, entries) in market">
+							<th colspan="6">{{name}}</th>
+						</tr>
+						<tr class="entry" ng-repeat="entry in entries" ng-repeat-end>
+							<td>{{entry.Name}}</td>
+							<td editable="Sell" category="name" compare="compare" entry="entry" class="number" ng-class="{'no-value': entry.Sell === 0}"></td>
+							<td editable="Buy" category="name" compare="compare" entry="entry" class="number" ng-class="{'no-value': entry.Buy === 0}"></td>
+							<td editable="Demand" category="name" compare="compare" entry="entry" class="number" ng-class="{'no-value': entry.Demand === 0}"></td>
+							<td editable="Supply" category="name" compare="compare" entry="entry" class="number" ng-class="{'no-value': entry.Supply === 0}"></td>
+							<td class="number">{{galactic[name][entry.Name].galactic_avg}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

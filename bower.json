@@ -1,0 +1,31 @@
+{
+  "name": "edtt",
+  "version": "0.0.0",
+  "authors": [
+    "Christophe Robin <crobin@nekoo.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.26",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "angular-cookies": "~1.2.26",
+    "angular-bootstrap": "~0.11.2",
+    "angular-ui-router": "~0.2.11",
+    "font-awesome": "~4.2.0",
+    "angucomplete-alt": "~0.0.28",
+    "numeral": "~1.5.3"
+  }
+}
