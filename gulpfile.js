@@ -122,18 +122,5 @@ gulp.task('watch', function () {
   gulp.watch(paths.styles, ['compile-less']);
 });
 
-gulp.task('webserver', function() {
-  connect.server({
-    root: 'dist',
-    livereload: true
-  });
-});
-
-gulp.task('livereload', function() {
-  gulp.src(['dist/**/*.*'])
-    .pipe(watch())
-    .pipe(connect.reload());
-});
-
 gulp.task('build', ['copy-vendors', 'copy-scripts', 'copy-templates', 'copy-files', 'copy-images', 'copy-fonts', 'compile-less']);
-gulp.task('default', ['build', 'webserver', 'livereload', 'watch']);
+gulp.task('default', ['build', 'watch']);

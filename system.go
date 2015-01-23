@@ -113,6 +113,10 @@ func Load() error {
 	}
 
 	for _, filename := range files {
+		if !strings.HasSuffix(filename, ".json") {
+			continue
+		}
+
 		file, err := os.Open("market/" + filename)
 		if err != nil {
 			return err
